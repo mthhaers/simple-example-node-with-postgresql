@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const {Pool} = require('pg');
 
 const app = express();
 
@@ -17,15 +16,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// PostgreSQL
-const pool = new Pool({
-    user: process.env.QOVERY_DATABASE_MY_POSTGRESQL_3498225_USERNAME,
-    host: process.env.QOVERY_DATABASE_MY_POSTGRESQL_3498225_HOST,
-    database: process.env.QOVERY_DATABASE_MY_POSTGRESQL_3498225_DATABASE,
-    password: process.env.QOVERY_DATABASE_MY_POSTGRESQL_3498225_PASSWORD,
-    port: process.env.QOVERY_DATABASE_MY_POSTGRESQL_3498225_PORT,
-});
-
 app.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
@@ -34,6 +24,13 @@ app.get('/users', function (req, res, next) {
     res.send('respond with a resource 2');
 });
 
+app.get('/rqa', function (req, res, next) {
+     try {
+    res.sendFile('rqa.l', { root: '.' });
+  } catch (error) {
+    res.json({ success: false, message: "Something went wrong:"+error });
+  }
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
