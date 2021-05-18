@@ -1,14 +1,11 @@
+---
 application:
-  name: afkifozx
-  project: afkifozx
-  publicly_accessible: true
-databases:
-- type: postgresql
-  version: "12"
-  name: my-psql
+  name: "camomiz"
+  project: "azoapp"
+  organization: "QoveryCommunity"
 routers:
-- name: main
+- name: "main-camomiz"
   routes:
-  - application_name: afkifozx
+  - application_name: "camomiz"
     paths:
-    - /
+    - "/*"
